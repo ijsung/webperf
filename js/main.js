@@ -6,7 +6,7 @@ var theme = 'light';
     //set the active pill and section on first load
     var section = (document.location.hash) ? document.location.hash.slice(1) : 'lines';
 
-    $('#trunk').load('metrics-graphics-2.8.0/examples/charts/' + section + '.htm', function() {
+    $('#trunk').load('charts/' + section + '.htm', function() {
         $('pre code').each(function(i, block) {
             hljs.highlightBlock(block);
         });
