@@ -1,25 +1,23 @@
             <div class='row trunk-section'>
-                <div class='col-lg-7 text-center' id='fake_users2'></div>
+                <div class='col-lg-7 text-center' id='BFS'></div>
             </div>
             
 
 <script>
 MG._hooks = {};
-d3.json('fake_data/fake_users2.json', function(data) {
-    for (var i = 0; i < data.length; i++) {
-        data[i] = MG.convert.date(data[i], 'date');
-    }
+d3.json('http://localhost:8000/measurements/', function(data) {
+    data = MG.convert.date(data, 'created');
 
     MG.data_graphic({
-        title: "Multi-Line Chart",
-        description: "This line chart contains multiple lines.",
+        title: "Speedup",
+        description: "Bogus speedup of BFS",
         data: data,
         width: 600,
         height: 200,
         right: 40,
-        target: '#fake_users2',
-        legend: ['Line 1','Line 2','Line 3'],
-        legend_target: '.legend'
+        target: '#BFS',
+        x_accessor: 'created',
+        y_accessor: 'speedup'
     });
 });
 
