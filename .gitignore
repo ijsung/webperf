@@ -1,0 +1,6 @@
+# Byte-compiled files
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+env/
