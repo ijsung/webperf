@@ -4,3 +4,9 @@
 
 # Distribution / packaging
 env/
+
+# Database
+*.sqlite3
+
+# vi
+.*.swp
