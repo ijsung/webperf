@@ -2,16 +2,18 @@
 <head>
     <meta content='text/html; charset=utf-8' http-equiv='Content-Type'>
     <meta property='og:title' content='MetricsGraphics.js' />
-    <meta property='og:description' content='MetricsGraphics.js is a library optimized
-        for visualizing and laying out time-series data. It provides a simple way to produce
-        common types of graphics in a principled, consistent and responsive way.' />
+    <meta property='og:description' content='Webperf is an attempt to help visualize compiler performance over time.' />
+    <!--
     <meta property='og:image' content='http://metricsgraphicsjs.org/images/og-logo.png' />
+    --!>
     <meta property='og:type' content='website' />
+    <!--
     <meta property='og:url' content='http://metricsgraphicsjs.org/' />
     <meta property='og:site_name' content='MetricsGraphics.js' />
 
     <link rel='icon' type='image/png' href='metrics-graphics-2.8.0/examples/images/og-logo.png' />
-    <title>MetricsGraphics.js - Examples</title>
+    --!>
+    <title>WebPerf - Performance visualization</title>
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=PT+Serif:400,700,400italic' rel='stylesheet' type='text/css'>
@@ -65,21 +67,22 @@
     <div class='container'>
         <div class='head'>
             <ul>
-                <li><a href='http://metricsgraphicsjs.org/'>Home</a></li>
-                <li><a href='https://github.com/mozilla/metrics-graphics/releases'>Download</a></li>
-                <li><a href='interactive-demo.htm'>Interactive</a></li>
-                <li><a href='https://github.com/mozilla/metrics-graphics'>Code</a></li>
-                <li><a href='https://github.com/mozilla/metrics-graphics/issues'>Issues</a></li>
+                <li><a href='https://github.com/ijsung/webperf'>Home</a></li>
+                <li><a href='https://github.com/ijsung/webperf/issues'>Issues</a></li>
                 <li class='divider'>|</li>
                 <li><a href='#' id='light-css' class='pill active'>Light style</a></li>
                 <li><a href='#' id='dark-css' class='pill'>Dark style</a></li>
                 <li><a href='#' id='accessible-css' class='pill'>Accessible style</a></li>
             </ul>
-
+            <!--
             <img src='metrics-graphics-2.8.0/examples/images/logo.svg' id='logo' class='svg' />
+            --!>
         </div>
 
         <ul class='examples text-center'>
+            <li><a href='#' id='goto-parboil' class='pill'>Parboil</a></li>
+            <li><a href='#' id='goto-parboil' class='pill'>MiBench</a></li>
+        <!--
             <li><a href='#' id='goto-lines' class='pill'>Lines</a></li>
             <li><a href='#' id='goto-multilines' class='pill'>Multiple Lines</a></li>
             <li><a href='#' id='goto-data' class='pill'>Data</a></li>
@@ -91,19 +94,14 @@
             <li><a href='#' id='goto-other' class='pill'>Other</a></li>
             <li><a href='#' id='goto-experimental' class='pill'>Experimental</a></li>
             <li><a href='#' id='goto-addons' class='pill'>Addons</a></li>
+        --!>
         </ul>
 
         <div id='trunk'></div>
 
         <div class='footer'>
-            <a href='http://metricsgraphicsjs.org'>MetricsGraphics.js 2.8</a>
-            <br />Created by <a href='https://twitter.com/alialmossawi'>Ali Almossawi</a> and
-            <a href='https://github.com/hamilton'>Hamilton Ulmer</a>
-            <br />2014-2016 &middot; Shared under a <a href='http://www.mozilla.org/MPL/2.0/'>
-            Mozilla Public License</a>
-            <br /><a href='https://github.com/mozilla/metrics-graphics'>
-                <i class='fa fa-github fa-3x' style='line-height:42px'></i>
-            </a>
+            Based on <a href='http://metricsgraphicsjs.org'>MetricsGraphics.js 2.8</a>
+            <br />Created by I-Jui Sung
         </div>
     </div> <!-- end container -->
 

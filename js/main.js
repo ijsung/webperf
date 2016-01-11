@@ -24,7 +24,7 @@ var theme = 'light';
             $(this).addClass('active');
 
             var section = $(this).attr('id').slice(5);
-            $('#trunk').load('metrics-graphics-2.8.0/examples/charts/' + section + '.htm', function() {
+            $('#trunk').load('charts/' + section + '.htm', function() {
                 $('pre code').each(function(i, block) {
                     hljs.highlightBlock(block);
                 });
