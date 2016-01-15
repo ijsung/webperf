@@ -5,12 +5,15 @@
 
 <script>
 MG._hooks = {};
-d3.json('http://localhost:8000/measurements/', function(data) {
-    data = MG.convert.date(data, 'created');
+d3.json('http://localhost:8000/benchmarks/Parboil_BFS', function(data) {
+    benchmark_name = data['benchmarkname']
+    data = MG.convert.date(data['measurements'], 'created');
+    console.log(data)
+    console.log(benchmark_name)
 
     MG.data_graphic({
-        title: "Speedup",
-        description: "Bogus speedup of BFS",
+        title: "Speedup of " + benchmark_name,
+        description: benchmark_name,
         data: data,
         width: 600,
         height: 200,
