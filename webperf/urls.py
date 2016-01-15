@@ -20,6 +20,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register(r'measurements', views.MeasurementViewSet)
+router.register(r'benchmarks', views.BenchmarkViewSet)
 #router.register(r'users', views.UserViewSet)
 
 urlpatterns = [

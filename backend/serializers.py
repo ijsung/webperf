@@ -1,16 +1,29 @@
 from rest_framework import serializers
-from backend.models import Measurement
+from backend.models import Benchmark, Measurement
 #from django.contrib.auth.models import User
 
+class BenchmarkSerializer(serializers.HyperlinkedModelSerializer):
+  pass
 
 class MeasurementSerializer(serializers.HyperlinkedModelSerializer):
-#    owner = serializers.ReadOnlyField(source='owner.username')
-#highlight = serializers.HyperlinkedIdentityField(view_name='measurements-highlight', format='html')
-
-    class Meta:
-        model = Measurement
-        fields = ('created', 'suite', 'benchmark', 'speedup')
+  benchmark = serializers.SlugRelatedField(
+      many=False,
+      slug_field='benchmarkname',
+      queryset=Benchmark.objects.all()
+      )
+  class Meta:
+    model = Measurement
+    fields = ('created', 'benchmark', 'speedup')
                   
+class BenchmarkSerializer(serializers.HyperlinkedModelSerializer):
+  measurements = MeasurementSerializer(many=True, read_only=True)
+  class Meta:
+    model = Benchmark
+    fields = ('benchmarkname', 'measurements')
+    extra_kwargs = {
+      'url': {'view_name':'benchmarks', 'lookup_field': 'benchmarkname' }
+    }
+
 #class UserSerializer(serializers.HyperlinkedModelSerializer):
 #    measurements = serializers.HyperlinkedRelatedField(queryset=Measurement.objects.all(), view_name='measurement-detail', many=True)
 #
