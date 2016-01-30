@@ -13,7 +13,7 @@ class MeasurementSerializer(serializers.HyperlinkedModelSerializer):
       )
   class Meta:
     model = Measurement
-    fields = ('created', 'benchmark', 'speedup', 'rawcycles', 'insfetched', 'insexeced', 'blkfetched', 'blkexeced',
+    fields = ('id', 'created', 'benchmark', 'speedup', 'rawcycles', 'insfetched', 'insexeced', 'blkfetched', 'blkexeced',
         'blkrefreshed', 'blkflushed')
                   
 class BenchmarkSerializer(serializers.HyperlinkedModelSerializer):

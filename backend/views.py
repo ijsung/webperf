@@ -15,7 +15,7 @@ class BenchmarkViewSet(viewsets.ModelViewSet):
   """
   queryset = Benchmark.objects.all()
   serializer_class = BenchmarkSerializer
-  lookup_field = 'benchmarkname'
+#  lookup_field = 'benchmarkname'
 
 class MeasurementViewSet(viewsets.ModelViewSet):
   """
