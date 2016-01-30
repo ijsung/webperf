@@ -8,7 +8,8 @@ import sys
 import argparse
 
 class BenchmarkCtx:
-  def __init__(self, tool, suite, benchmark):
+  def __init__(self, date, tool, suite, benchmark):
+    self.date = date
     self.tool = tool
     self.benchmark_suite = suite
     self.benchmark = benchmark
@@ -48,6 +49,9 @@ def UploadOneStat(statfile, ctx):
     'blkflushed':    s['C0[0,0].blocks_flushed'],
     'blkrefreshed':  s['C0[0,0].blocks_refreshed'],
   }
+  if (ctx.date != ''):
+    data['created'] = ctx.date
+
   req = urllib2.Request('http://localhost:8000/measurements/')
   req.add_header('Content-Type', 'application/json')
   respons = urllib2.urlopen(req, json.dumps(data))
@@ -73,7 +77,7 @@ def UploadOrCreateOneBenchmark(statfile, ctx):
 
 # Assuming date\benchmark\*.stats
 # Ignoring "date" for now - uses today's date instead
-def FindStats(toplevel, tool):
+def FindStats(toplevel, tool, date):
   for dirname, dirnames, filenames in os.walk(toplevel):
 
   # Assuming the enclosing directory name is the benchmark name
@@ -82,7 +86,7 @@ def FindStats(toplevel, tool):
       if ext != ".stats":
         continue
       benchmark_suite = os.path.basename(dirname)
-      ctx = BenchmarkCtx('LLVM', benchmark_suite, bench)
+      ctx = BenchmarkCtx(date, 'LLVM', benchmark_suite, bench)
       UploadOrCreateOneBenchmark(os.path.join(dirname, filename), ctx)
 
 desc = 'Upload emulator-generated stats files found in given directory, and upload them to localhost:8000. Caveats: forces today\'s date and ignores tool given'
@@ -92,10 +96,12 @@ parser.add_argument('--dir', dest='directory', default='.',
                    help='the directory to scan (default: current directory)')
 parser.add_argument('--tool', dest='tool', default='llvm',
                   help='the compiler tool used. (default: llvm) [FIXME currently ignored]')
+parser.add_argument('--date', dest='created', default='',
+                  help='the date of the measurment. muste be in MMMM-YY-DD format (default: today)')
 
 args = parser.parse_args()
 print "Searching " + args.directory
 
-FindStats(args.directory, args.tool)
+FindStats(args.directory, args.tool, args.created)
 
 
