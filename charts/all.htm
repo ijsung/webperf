@@ -108,7 +108,10 @@ d3.json('http://localhost:8000/benchmarks/', function(data) {
     ['blkexeced',  'Blk. Executed'],
   ];
   // for each benchmark
-  for (i = 0; i <  data.length ; i++) {
+  for (i = 0, render_target = 0; i <  data.length ; i++) {
+    if (data[i]['measurements'].length == 0) {
+      continue;
+    }
     // convert details to MG format, or list of lists
     var details = [];
     for (var key_idx = 0; key_idx < keys.length; key_idx ++) {
@@ -144,10 +147,11 @@ d3.json('http://localhost:8000/benchmarks/', function(data) {
         width: 600,
         height: 200,
         right: 40,
-        target: '#Bench' + i.toString(),
+        target: '#Bench' + render_target.toString(),
         legend: blegends,
-        legend_target: '#BL' + i.toString()
+        legend_target: '#BL' + render_target.toString()
     });
+    render_target++;
   }
   /* Speedup
   for (i = 0; i < data.length; i++) {
