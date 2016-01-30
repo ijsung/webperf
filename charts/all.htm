@@ -1,0 +1,123 @@
+            <div class='row trunk-section'>
+                <div class='col-lg-7 text-center' id='Bench0'></div>
+                <div class='col-lg-7 text-center legend' id='BL0'></div>
+
+                <div class='col-lg-7 text-center' id='Bench1'></div>
+                <div class='col-lg-7 text-center legend' id='BL1'></div>
+
+                <div class='col-lg-7 text-center' id='Bench2'></div>
+                <div class='col-lg-7 text-center legend' id='BL2'></div>
+
+                <div class='col-lg-7 text-center' id='Bench3'></div>
+                <div class='col-lg-7 text-center legend' id='BL3'></div>
+
+                <div class='col-lg-7 text-center' id='Bench4'></div>
+                <div class='col-lg-7 text-center legend' id='BL4'></div>
+
+                <div class='col-lg-7 text-center' id='Bench5'></div>
+                <div class='col-lg-7 text-center legend' id='BL5'></div>
+
+                <div class='col-lg-7 text-center' id='Bench6'></div>
+                <div class='col-lg-7 text-center legend' id='BL6'></div>
+
+                <div class='col-lg-7 text-center' id='Bench7'></div>
+                <div class='col-lg-7 text-center legend' id='BL7'></div>
+
+                <div class='col-lg-7 text-center' id='Bench8'></div>
+                <div class='col-lg-7 text-center legend' id='BL8'></div>
+
+                <div class='col-lg-7 text-center' id='Bench9'></div>
+                <div class='col-lg-7 text-center legend' id='BL9'></div>
+
+                <div class='col-lg-7 text-center' id='Bench10'></div>
+                <div class='col-lg-7 text-center legend' id='BL10'></div>
+            </div>
+            
+
+<script>
+MG._hooks = {};
+
+d3.json('http://localhost:8000/benchmarks/', function(data) {
+  console.log(data[0]);
+  limit = 11
+  if (data.length > limit) {
+    s = data[limit]['benchmarkname']
+    for (j = limit + 1; j < data.length; j++) {
+      s = s + ", " + data[j]['benchmarkname']
+    }
+
+    window.alert(
+      "Right now we plot the first " + limit.toString() + " benchmarks. " +
+      "The following benchmarks are not plotted: " + s)
+  }
+  var keys = [
+    ['rawcycles', 'Raw Cycles'],
+    ['insfetched', 'Ins. Fetched'],
+    ['insexeced',  'Ins. Executed'],
+    ['blkfetched',  'Blk. Fetched'],
+    ['blkexeced',  'Blk. Executed'],
+  ];
+  // for each benchmark
+  for (i = 0; i <  data.length ; i++) {
+    // convert details to MG format, or list of lists
+    var details = [];
+    for (var key_idx = 0; key_idx < keys.length; key_idx ++) {
+      var key = keys[key_idx][0]
+
+      details[key_idx] = [];
+      for (j = 0; j < data[i]['measurements'].length; j++) {
+        details[key_idx][j] = {
+          'date': data[i]['measurements'][j]['created'],
+          'value': data[i]['measurements'][j][key]
+        };
+      }
+    }
+    console.log(details)
+    for (j = 0; j < details.length; j++) {
+      details[j] = MG.convert.date(details[j], 'date');
+    }
+
+    benchmark_name = data[i]['benchmarkname']
+    console.log(benchmark_name)
+    
+    var blegends = [];
+    
+    for (j = 0; j<keys.length; j++) {
+      blegends[j] = keys[j][1]
+    }
+    
+
+    MG.data_graphic({
+        title: "Details of " + benchmark_name,
+        description: benchmark_name,
+        data: details,
+        width: 600,
+        height: 200,
+        right: 40,
+        target: '#Bench' + i.toString(),
+        legend: blegends,
+        legend_target: '#BL' + i.toString()
+    });
+  }
+  /* Speedup
+  for (i = 0; i < data.length; i++) {
+    benchmark_name = data[i]['benchmarkname']
+    data1 = MG.convert.date(data[i]['measurements'], 'created');
+    console.log(data)
+    console.log(benchmark_name)
+
+    MG.data_graphic({
+        title: "Speedup of " + benchmark_name,
+        description: benchmark_name,
+        data: data1,
+        width: 600,
+        height: 200,
+        right: 40,
+        target: '#Bench' + i.toString(),
+        x_accessor: 'created',
+        y_accessor: 'speedup'
+    });
+  }
+  */
+});
+</script>
