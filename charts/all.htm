@@ -87,8 +87,35 @@
 <script>
 MG._hooks = {};
 
-d3.json('http://localhost:8000/benchmarks/', function(data) {
-  console.log(data[0]);
+d3.json('http://localhost:8000/benchmarks/', function(error, data) {
+  if (error) {
+    MG.data_graphic({
+      title: "Missing Data",
+      description: "Data is currently missing.",
+      error: 'Cannot access backend server.',
+      chart_type: 'missing-data',
+      missing_text: 'No data loaded. Please make sure backend is up at localhost:8000',
+      target: '#Bench0',
+      width: 600,
+      height: 200
+    });
+    return
+  }
+  // no benchmark found
+  if (data.lengh == 0) {
+    MG.data_graphic({
+      title: "Empty Database",
+      description: "Database is empty.",
+      error: 'No renderable data',
+      chart_type: 'missing-data',
+      missing_text: 'Database is empty; please upload some measurements using uploader/upload_stats.py',
+      target: '#Bench0',
+      width: 600,
+      height: 200
+    });
+    return
+  }
+
   limit = 12
   if (data.length > limit) {
     s = data[limit]['benchmarkname']
