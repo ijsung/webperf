@@ -1,37 +1,87 @@
-            <div class='row trunk-section'>
-                <div class='col-lg-7 text-center' id='Bench0'></div>
-                <div class='col-lg-7 text-center legend' id='BL0'></div>
+<div class='row trunk-section'>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench0'></div>
+      <div class='col-lg-12 text-center legend' id='BL0'></div>
+    </div>
+  </div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench1'></div>
+      <div class='col-lg-12 text-center legend' id='BL1'></div>
+    </div>
+  </div>
 
-                <div class='col-lg-7 text-center' id='Bench1'></div>
-                <div class='col-lg-7 text-center legend' id='BL1'></div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench2'></div>
+      <div class='col-lg-12 text-center legend' id='BL2'></div>
+    </div>
+  </div>
 
-                <div class='col-lg-7 text-center' id='Bench2'></div>
-                <div class='col-lg-7 text-center legend' id='BL2'></div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench3'></div>
+      <div class='col-lg-12 text-center legend' id='BL3'></div>
+    </div>
+  </div>
 
-                <div class='col-lg-7 text-center' id='Bench3'></div>
-                <div class='col-lg-7 text-center legend' id='BL3'></div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench4'></div>
+      <div class='col-lg-12 text-center legend' id='BL4'></div>
+    </div>
+  </div>
 
-                <div class='col-lg-7 text-center' id='Bench4'></div>
-                <div class='col-lg-7 text-center legend' id='BL4'></div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench5'></div>
+      <div class='col-lg-12 text-center legend' id='BL5'></div>
+    </div>
+  </div>
 
-                <div class='col-lg-7 text-center' id='Bench5'></div>
-                <div class='col-lg-7 text-center legend' id='BL5'></div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench6'></div>
+      <div class='col-lg-12 text-center legend' id='BL6'></div>
+    </div>
+  </div>
 
-                <div class='col-lg-7 text-center' id='Bench6'></div>
-                <div class='col-lg-7 text-center legend' id='BL6'></div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench7'></div>
+      <div class='col-lg-12 text-center legend' id='BL7'></div>
+    </div>
+  </div>
 
-                <div class='col-lg-7 text-center' id='Bench7'></div>
-                <div class='col-lg-7 text-center legend' id='BL7'></div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench8'></div>
+      <div class='col-lg-12 text-center legend' id='BL8'></div>
+    </div>
+  </div>
 
-                <div class='col-lg-7 text-center' id='Bench8'></div>
-                <div class='col-lg-7 text-center legend' id='BL8'></div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench9'></div>
+      <div class='col-lg-12 text-center legend' id='BL9'></div>
+    </div>
+  </div>
 
-                <div class='col-lg-7 text-center' id='Bench9'></div>
-                <div class='col-lg-7 text-center legend' id='BL9'></div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench10'></div>
+      <div class='col-lg-12 text-center legend' id='BL10'></div>
+    </div>
+  </div>
 
-                <div class='col-lg-7 text-center' id='Bench10'></div>
-                <div class='col-lg-7 text-center legend' id='BL10'></div>
-            </div>
+  <div class='col-lg-6'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench11'></div>
+      <div class='col-lg-12 text-center legend' id='BL11'></div>
+    </div>
+  </div>
+</div>
             
 
 <script>
@@ -39,7 +89,7 @@ MG._hooks = {};
 
 d3.json('http://localhost:8000/benchmarks/', function(data) {
   console.log(data[0]);
-  limit = 11
+  limit = 12
   if (data.length > limit) {
     s = data[limit]['benchmarkname']
     for (j = limit + 1; j < data.length; j++) {
