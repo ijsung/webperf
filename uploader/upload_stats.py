@@ -2,7 +2,14 @@
 
 import csv
 import json
-import urllib2
+try:
+  import urllib.request as urllib2
+  from urllib.error import HTTPError
+  import urllib.parse
+except ImportError:
+  import urllib2
+  from urllib2 import HTTPError
+
 import os
 import sys
 import argparse
@@ -27,12 +34,20 @@ def ReadStats(statfile):
     'C0[0,0].blocks_refreshed':-1
   }
 
-  with open(statfile, 'rb') as csvfile:
+  with open(statfile, 'r') as csvfile:
     s = csv.reader(csvfile, delimiter=' ', skipinitialspace=True)
     for row in s:
-      if d.has_key(row[0]):
+      if row[0] in d:
         d[row[0]] = row[1]
     return d
+
+def PostURL(req, data):
+  try: # Python 2 URLlib
+    respons = urllib2.urlopen(req, json.dumps(data))
+  except TypeError as t: #Python 3
+    data = json.dumps(data).encode('utf8')
+    respons = urllib2.urlopen(req, data)
+  return respons
 
 # Parse one stat file and upload via POST
 def UploadOneStat(statfile, ctx):
@@ -51,11 +66,10 @@ def UploadOneStat(statfile, ctx):
   }
   if (ctx.date != ''):
     data['created'] = ctx.date
-
   req = urllib2.Request('http://localhost:8000/measurements/')
   req.add_header('Content-Type', 'application/json')
-  respons = urllib2.urlopen(req, json.dumps(data))
-  print "Finished uploading benchmark " + ctx.benchmark + " of " + ctx.benchmark_suite
+  PostURL(req, data)
+  print("Finished uploading benchmark " + ctx.benchmark + " of " + ctx.benchmark_suite)
 
 # Create a new benchmark via POST
 def CreateBenchmark(benchmark):
@@ -64,14 +78,14 @@ def CreateBenchmark(benchmark):
   }
   req = urllib2.Request('http://localhost:8000/benchmarks/')
   req.add_header('Content-Type', 'application/json')
-  respons = urllib2.urlopen(req, json.dumps(data))
+  PostURL(req, data)
 
 def UploadOrCreateOneBenchmark(statfile, ctx):
   try:
     UploadOneStat(statfile, ctx)
-  except urllib2.HTTPError, e:
+  except HTTPError as e:
     if e.code == 400: # this happens if the benchmark is not created. Create it here.
-      print "Creating benchmark: " + ctx.benchmark
+      print("Creating benchmark: " + ctx.benchmark)
       CreateBenchmark(ctx.benchmark)
       UploadOneStat(statfile, ctx)
 
@@ -100,7 +114,7 @@ parser.add_argument('--date', dest='created', default='',
                   help='the date of the measurment. muste be in MMMM-YY-DD format (default: today)')
 
 args = parser.parse_args()
-print "Searching " + args.directory
+print("Searching " + args.directory)
 
 FindStats(args.directory, args.tool, args.created)
 
