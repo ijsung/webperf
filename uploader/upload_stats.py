@@ -1,4 +1,5 @@
 # Upload stats files found in given directory, and upload them to localhost:8000
+# Assumes E2 simulator output (*.stats)
 
 import csv
 import json

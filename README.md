@@ -30,8 +30,12 @@ This tutorial has been verified on an OS X El Capitan machine, but
 should work with systems that Python, Django and SQLite run on.
 
 ## Prerequisites
-* Python 2.7 for backend
-* Python 2/3 for uploading script
+* Python 2.7+
+
+## Preparation
+
+It is generally a good idea to virtualze the environment with virtualenv and/or pyenv.
+
 * Install pip
 * Install virtualenv via pip
 
@@ -82,7 +86,7 @@ coverage run manage.py test -v 2 # optional. run coverage testing
 coverage html #optional. generate coverage report in HTML
 ```	
 
-### Run server locally at 127.0.0.1:8000
+### Run the backend locally at 127.0.0.1:8000
 ```
 python manage.py runserver
 ```	
