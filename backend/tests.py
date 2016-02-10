@@ -22,7 +22,8 @@ class CreateMeasurementTest(APITestCase):
           {
           'created' : '2015-1-3',
           'benchmark' : 'test2',
-          'speedup' : 1.3
+          'speedup' : 1.3,
+          'tags' : ''
           }
           , format='json')
       self.assertEqual(response.status_code, status.HTTP_201_CREATED)
