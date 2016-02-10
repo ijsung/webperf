@@ -66,6 +66,8 @@ pip install django
 pip install djangorestframework
 # Install CORS headers so that we can request JSON from the frontend on a different machine
 pip install django-cors-headers
+pip install django-taggit six
+pip install django-taggit-serializer
 ```	
 
 

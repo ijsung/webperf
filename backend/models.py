@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from datetime import date
+from taggit.managers import TaggableManager
 
 # One benchmark suite
 class BenchmarkSuite(models.Model):
@@ -27,6 +28,7 @@ class Measurement(models.Model):
   blkexeced = models.BigIntegerField(help_text="Blocks executed", default="-1")
   blkrefreshed = models.BigIntegerField(help_text="Blocks refreshed", default="-1")
   blkflushed = models.BigIntegerField(help_text="Blocks flushed", default="-1")
+  tags = TaggableManager(blank=True)
 
 #    owner = models.ForeignKey('auth.User', related_name='measurements')
 

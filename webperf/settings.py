@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'backend',
-    'corsheaders'
+    'corsheaders',
+    'taggit',
+    'taggit_serializer',
 ]
 
 MIDDLEWARE_CLASSES = [
