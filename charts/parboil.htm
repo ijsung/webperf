@@ -231,6 +231,44 @@
     </div>
   </div>
 
+  <div class='col-lg-4'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench12vs'></div>
+      <div class='col-lg-12 text-center legend' id='BL12vs'></div>
+    </div>
+  </div>
+  <div class='col-lg-4'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench12llvm'></div>
+      <div class='col-lg-12 text-center legend' id='BL12llvm'></div>
+    </div>
+  </div>
+  <div class='col-lg-4'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench12tiled'></div>
+      <div class='col-lg-12 text-center legend' id='BL12tiled'></div>
+    </div>
+  </div>
+
+  <div class='col-lg-4'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench13vs'></div>
+      <div class='col-lg-12 text-center legend' id='BL13vs'></div>
+    </div>
+  </div>
+  <div class='col-lg-4'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench13llvm'></div>
+      <div class='col-lg-12 text-center legend' id='BL13llvm'></div>
+    </div>
+  </div>
+  <div class='col-lg-4'>
+    <div class='row'>
+      <div class='col-lg-12 text-center' id='Bench13tiled'></div>
+      <div class='col-lg-12 text-center legend' id='BL13tiled'></div>
+    </div>
+  </div>
+
 </div>
 <script>
 MG._hooks = {};
@@ -264,7 +302,7 @@ d3.json('http://localhost:8000/benchmarks/', function(error, data) {
     return
   }
 
-  limit = 12
+  limit = 14
   if (data.length > limit) {
     s = data[limit]['benchmarkname']
     for (j = limit + 1; j < data.length; j++) {
@@ -296,6 +334,7 @@ d3.json('http://localhost:8000/benchmarks/', function(error, data) {
     if (data[i]['measurements'].length == 0) {
       continue;
     }
+    var rendered_tags = 0;
     // for each supported tag
     for (var tag_idx = 0; tag_idx < tags.length; tag_idx ++) {
       var tag = tags[tag_idx][0];
@@ -322,7 +361,7 @@ d3.json('http://localhost:8000/benchmarks/', function(error, data) {
       benchmark_name = data[i]['benchmarkname'];
       // We have the benchmark, but lack of matching tag..
       if (details[0].length == 0) {
-        if (suite != 'all')
+        if (rendered_tags == 0 && suite != "all")
           continue;
         MG.data_graphic({
           title: "Missing data with tag: "+tag.toString,
@@ -338,6 +377,7 @@ d3.json('http://localhost:8000/benchmarks/', function(error, data) {
           legend_target: '#BL' + render_target.toString() + tag.toString(),
           });
       } else {
+        rendered_tags ++;
         for (j = 0; j < details.length; j++) {
           details[j] = MG.convert.date(details[j], 'date');
         }
