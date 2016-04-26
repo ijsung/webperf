@@ -22,7 +22,7 @@ define(`outputwindow',
 
 )dnl
 <div class='row trunk-section'>
-define(`m4_max_outputwindow_id', 99)dnl
+define(`m4_max_outputwindow_id', 30)dnl
 forloop(`i', 0, m4_max_outputwindow_id, `outputwindow(i)')dnl
 </div>
 <script>
@@ -125,7 +125,7 @@ d3.json('http://localhost:8000/benchmarks/', function(error, data) {
           chart_type: 'missing-data',
           missing_text: benchmark_name + ' does not have data with tag \''+tag.toString()+'\'',
           width: 390,
-          height: 270, // missing data chart doesn't have legends; must make it slightly taller than normal ones
+          height: 230, // missing data chart doesn't have legends; must make it slightly taller than normal ones
           right: 40,
           target: '#Bench' + render_target.toString() + tag.toString(),
           legend: blegends,
