@@ -3,6 +3,8 @@
 
 import csv
 import json
+import datetime
+from io import StringIO
 try:
   import urllib.request as urllib2
   from urllib.error import HTTPError
@@ -15,6 +17,8 @@ import os
 import sys
 import argparse
 
+measurements = []
+
 class BenchmarkCtx:
   def __init__(self, date, tag, suite, benchmark):
     self.date = date
@@ -23,6 +27,24 @@ class BenchmarkCtx:
     self.benchmark = benchmark
     self.tag = tag
 
+
+def FindMatchingMeasurements(data, ctx):
+# python 3
+  global measurements
+  if not measurements:
+    response = urllib2.urlopen('http://localhost:8000/measurements')
+    measurements = json.loads(response.read().decode('utf-8'))
+  try:
+    io = StringIO(ctx.tag)
+  except TypeError as t: #Python 2.7
+    io = StringIO(unicode(ctx.tag))
+
+  data_tags = set(json.load(io))
+  for i, j in enumerate(measurements):
+    j_tags = set(j['tags'])
+    if data_tags == j_tags and data['created'] == j['created'] and j['benchmark'] == data['benchmark']:
+      return True, j['id']
+  return False, ''
 
 # Reads given stat file and return important numbers as a dict
 def ReadStats(statfile):
@@ -72,10 +94,18 @@ def UploadOneStat(statfile, ctx):
   }
   if (ctx.date != ''):
     data['created'] = ctx.date
+  else:
+    data['created'] = datetime.datetime.today().strftime('%Y-%m-%d')
+  found, matched_id = FindMatchingMeasurements(data, ctx)
+  if (found):
+    print("Duplicated stats for " + ctx.benchmark + "; skipped uploading:")
+    print("See http://localhost:8000/measurements/"+str(matched_id)+"/")
+    return False
   req = urllib2.Request('http://localhost:8000/measurements/')
   req.add_header('Content-Type', 'application/json')
   PostURL(req, data)
   print("Finished uploading benchmark " + ctx.benchmark + " of " + ctx.benchmark_suite)
+  return True
 
 # Create a new benchmark via POST
 def CreateBenchmark(benchmark):
